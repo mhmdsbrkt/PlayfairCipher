@@ -23,10 +23,10 @@ public class PlyfairCipher {
     int columnNo = 0;
     int rowNo = 0;
     char[][] Matrix;
-    int mateixSize = 0;
     Set<Character> matrixString = new LinkedHashSet<>();
     StringBuilder finalString = new StringBuilder();
     int [] fllArray ;
+    int [] spaceArray ;
     boolean oddFlag;
 
     public int[] getFllArray() {
@@ -92,10 +92,16 @@ public class PlyfairCipher {
 
     public String formatText(String Message) {
         Message = Message.toUpperCase();
-        Message = Message.replaceAll(" ", "");
         fllArray = new int[Message.length()*2];
+        spaceArray = new int[Message.length()*3];
         oddFlag=false;
 
+        for (int i = 0; i <Message.length() ; i++) {
+            if (Message.charAt(i)==' '){
+                spaceArray[i]=1;
+            }
+        }
+        Message = Message.replaceAll(" ", "");
 
         for (int i = 1; i < Message.length(); i = i + 2) {
             if (Message.charAt(i - 1) == Message.charAt(i)) {
@@ -282,6 +288,8 @@ public class PlyfairCipher {
         }
 
 
+
+
         for (int i = 0; i <fllArray.length ; i++) {
 
             if (fllArray[i]>0){
@@ -296,9 +304,23 @@ public class PlyfairCipher {
         if (oddFlag==true){
             plainText=plainText.substring(0,plainText.length()-1);
         }
+
+        for (int i = 0; i <spaceArray.length ; i++) {
+            if (spaceArray[i]>0){
+                StringBuilder sb = new StringBuilder(plainText);
+                sb.insert(i,' ');
+                plainText=sb.toString();
+            }
+        }
         return plainText;
 
     }
 
+    public int[] getSpaceArray() {
+        return spaceArray;
+    }
 
+    public void setSpaceArray(int[] spaceArray) {
+        this.spaceArray = spaceArray;
+    }
 }

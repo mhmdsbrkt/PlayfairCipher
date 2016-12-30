@@ -6,25 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView msg, infoip;
-    Server server;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        server = new Server(this);
         final Button englishStart = (Button) findViewById(R.id.englishBTN);
         final Button arabicStart = (Button) findViewById(R.id.arabicBTN);
         final Button mixStart = (Button) findViewById(R.id.mixBTN);
         final Button customStart = (Button) findViewById(R.id.customBTN);
-        final Button ConnectBTN = (Button) findViewById(R.id.ConnectBTN);
-        infoip = (TextView) findViewById(R.id.infoip);
-
-        msg = (TextView) findViewById(R.id.msg);
-        infoip.setText(server.getIpAddress()+":"+server.getPort());
 
 
 
@@ -85,17 +78,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ConnectBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ClientActivity.class);
-                startActivity(i);
-            }
-        });
+
     }
 
     protected void onDestroy() {
         super.onDestroy();
-        server.onDestroy();
     }
 }

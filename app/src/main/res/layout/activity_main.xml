@@ -74,7 +74,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="ENG"
+                            android:text="English"
 
                             android:backgroundTint="@color/colorPrimaryDark"
                             android:textColor="@color/white"
@@ -105,17 +105,7 @@
 
                             />
 
-                        <Button
-                            android:id="@+id/customBTN"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:backgroundTint="@color/colorPrimaryDark"
-                            android:text="Custom"
-                            android:textColor="@color/white"
-                            android:textSize="13dp"
 
-                            />
 
                     </LinearLayout>
 
@@ -127,17 +117,16 @@
                         >
 
                         <Button
-                            android:text="Connect"
+                            android:id="@+id/customBTN"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/ConnectBTN"
                             android:layout_weight="1"
                             android:backgroundTint="@color/colorAccent"
+                            android:text="Custom"
                             android:textColor="@color/white"
+                            android:textSize="13dp"
 
                             />
-
-
                     </LinearLayout>
 
                 </LinearLayout>
@@ -187,27 +176,7 @@
                 android:layout_alignParentStart="true"
                 android:paddingTop="4dp"                />
 
-            <TextView
-                android:id="@+id/msg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:layout_below="@+id/Authors"
-                android:layout_toRightOf="@+id/Authors"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:gravity="center"
-                />
 
-
-            <TextView
-                android:id="@+id/infoip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_below="@+id/msg"
-                android:gravity="center"
-                />
         </RelativeLayout>
 
     </ScrollView>
