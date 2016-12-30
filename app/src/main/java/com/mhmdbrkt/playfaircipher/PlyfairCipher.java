@@ -1,5 +1,7 @@
 package com.mhmdbrkt.playfaircipher;
 
+import android.os.Message;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +26,24 @@ public class PlyfairCipher {
     int mateixSize = 0;
     Set<Character> matrixString = new LinkedHashSet<>();
     StringBuilder finalString = new StringBuilder();
+    int [] fllArray ;
+    boolean oddFlag;
 
+    public int[] getFllArray() {
+        return fllArray;
+    }
+
+    public void setFllArray(int[] fllArray) {
+        this.fllArray = fllArray;
+    }
+
+    public boolean isOddFlag() {
+        return oddFlag;
+    }
+
+    public void setOddFlag(boolean oddFlag) {
+        this.oddFlag = oddFlag;
+    }
 
     public PlyfairCipher(String alphabet, int columnNo, int rowNo, char fillerLetter, String plainText, String key) {
 
@@ -74,6 +93,8 @@ public class PlyfairCipher {
     public String formatText(String Message) {
         Message = Message.toUpperCase();
         Message = Message.replaceAll(" ", "");
+        fllArray = new int[Message.length()*2];
+        oddFlag=false;
 
 
         for (int i = 1; i < Message.length(); i = i + 2) {
@@ -90,12 +111,14 @@ public class PlyfairCipher {
                 }
                 Message = "";
                 Message = temp1 + fillerLetter + temp2;
+                fllArray[i]=1;
             }
 
         }
 
         if (Message.length() % 2 == 1) {
             Message = Message + fillerLetter;
+            oddFlag=true;
 
         }
 
@@ -258,7 +281,24 @@ public class PlyfairCipher {
 
         }
 
+
+        for (int i = 0; i <fllArray.length ; i++) {
+
+            if (fllArray[i]>0){
+                StringBuilder sb = new StringBuilder(plainText);
+                sb.deleteCharAt(i);
+                plainText=sb.toString();
+            }
+
+
+        }
+
+        if (oddFlag==true){
+            plainText=plainText.substring(0,plainText.length()-1);
+        }
         return plainText;
 
     }
+
+
 }

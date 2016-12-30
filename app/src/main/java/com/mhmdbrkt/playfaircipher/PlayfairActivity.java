@@ -13,6 +13,9 @@ import android.widget.ToggleButton;
 
 public class PlayfairActivity extends AppCompatActivity {
 
+    int [] fflArray;
+    boolean oddflag=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,7 @@ public class PlayfairActivity extends AppCompatActivity {
         final EditText etPlainText = (EditText) findViewById(R.id.etPlaintext);
         final EditText etkey = (EditText) findViewById(R.id.etKey);
 
-        final ToggleButton matrixToggle = (ToggleButton) findViewById(R.id.MtarixTogBTN);
+        final Button matrixToggle = (Button) findViewById(R.id.MtarixTogBTN);
 
         tvMatrixText.setTypeface(kawkabMono);
         tvCipherText.setTypeface(kawkabMono);
@@ -61,9 +64,7 @@ public class PlayfairActivity extends AppCompatActivity {
             encryptButton.setText("Encrypt");
             tvResult.setText("The Result");
 
-            matrixToggle.setText("Help");
-            matrixToggle.setTextOff("Help");
-            matrixToggle.setTextOn("Hide");
+            matrixToggle.setText("Sned");
 
         } else if (Alphabet.equalsIgnoreCase(ArabicAlphabets)) {
 
@@ -78,9 +79,7 @@ public class PlayfairActivity extends AppCompatActivity {
             encryptButton.setText("تشفير");
             tvResult.setText("النتيجة");
 
-            matrixToggle.setText("شرح");
-            matrixToggle.setTextOff("شرح");
-            matrixToggle.setTextOn("إخفاء");
+            matrixToggle.setText("إرسال");
 
         } else {
 
@@ -97,7 +96,6 @@ public class PlayfairActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                matrixToggle.setChecked(false);
                 String Validator = etPlainText.getText().toString().toUpperCase() + etkey.getText().toString().toUpperCase();
                 Validator = Validator.replaceAll(" ", "");
 
@@ -118,7 +116,6 @@ public class PlayfairActivity extends AppCompatActivity {
                     tvCipherText.setText("");
                     tvKeyText.setText("");
                     tvMatrixText.setText("");
-                    matrixToggle.setChecked(false);
 
 
                 } else if (etPlainText.length() == 0) {
@@ -145,53 +142,8 @@ public class PlayfairActivity extends AppCompatActivity {
                     tvCipherText.setText(cipherText);
                     final String cipher = cipherText;
 
-                    matrixToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if (isChecked) {
-                                // The toggle is enabled
-                                String RowNo = "R";
-                                String message = "Plaintext";
-                                String key = "Final Key";
-                                if (Alphabet.equalsIgnoreCase(ArabicAlphabets)) {
-                                    RowNo = "صف:";
-                                    message = "نص الرسالة:";
-                                    key = "مفتاح التشفير:";
-
-                                }
-
-                                String printedKey = Encryption.getKey();
-                                String printedText = Encryption.getPlainText();
-                                String explainedResult = cipher;
-                                explainedResult = explainedResult.replaceAll("(.{2})(?!$)", "$1\t\t");
-
-                                char[][] printedMatrix = Encryption.getMatrix();
-                                StringBuilder printedMatrixString = new StringBuilder();
-
-
-                                for (int i = 0; i < col; i++) {
-                                    printedMatrixString.append(RowNo + (i + 1) + "\t\t\t");
-
-                                    for (int j = 0; j < row; j++) {
-                                        printedMatrixString.append(printedMatrix[i][j] + "\t\t\t");
-
-                                    }
-                                    if (i < col - 1) {
-                                        printedMatrixString.append("\n");
-                                    }
-
-
-                                }
-                                printedText = printedText.replaceAll("(.{2})(?!$)", "$1\t");
-                                tvKeyText.setText(message + "\t\t" + printedText + "\n" + key + "\t\t" + printedKey);
-                                tvMatrixText.setText(printedMatrixString);
-                                tvCipherText.setText(explainedResult);
-                            } else {
-                                tvKeyText.setText("");
-                                tvMatrixText.setText("");
-                                tvCipherText.setText(cipher);
-                            }
-                        }
-                    });
+                    fflArray=Encryption.getFllArray();
+                    oddflag=Encryption.isOddFlag();
 
 //                     Hide Keyboard After clicking Button
 
@@ -202,12 +154,12 @@ public class PlayfairActivity extends AppCompatActivity {
             }
         });
 
+
         decryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                matrixToggle.setChecked(false);
 
                 String Validator = etPlainText.getText().toString().toUpperCase() + etkey.getText().toString().toUpperCase();
                 Validator = Validator.replaceAll(" ", "");
@@ -249,55 +201,14 @@ public class PlayfairActivity extends AppCompatActivity {
                     String text = etPlainText.getText().toString();
 
                     final PlyfairCipher Decryption = new PlyfairCipher(Alphabet, col, row, fillerLetter, text, key);
-
+                    Decryption.setFllArray(fflArray);
+                    Decryption.setOddFlag(oddflag);
                     String cipherText = Decryption.decrypt(Decryption.getMatrix(), Decryption.getPlainText());
                     tvCipherText.setTextColor(getResources().getColor(R.color.colorAccent));
                     tvCipherText.setText(cipherText);
                     final String cipher = cipherText;
 
-                    matrixToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            if (isChecked) {
-                                // The toggle is enabled
-                                String RowNo = "R";
 
-                                if (Alphabet.equalsIgnoreCase(ArabicAlphabets)) {
-                                    RowNo = "صف:";
-                                }
-
-                                String printedKey = Decryption.getKey();
-                                String printedText = Decryption.getPlainText();
-                                String explainedResult = cipher;
-                                explainedResult = explainedResult.replaceAll("(.{2})(?!$)", "$1\t\t");
-
-                                char[][] printedMatrix = Decryption.getMatrix();
-                                StringBuilder printedMatrixString = new StringBuilder();
-
-
-                                for (int i = 0; i < col; i++) {
-                                    printedMatrixString.append(RowNo + (i + 1) + "\t\t\t");
-
-                                    for (int j = 0; j < row; j++) {
-                                        printedMatrixString.append(printedMatrix[i][j] + "\t\t\t");
-
-                                    }
-                                    if (i < col - 1) {
-                                        printedMatrixString.append("\n");
-                                    }
-
-
-                                }
-                                printedText = printedText.replaceAll("(.{2})(?!$)", "$1\t");
-                                tvKeyText.setText("Plaintext:\t" + printedText + "\nFinal Key:\t" + printedKey);
-                                tvMatrixText.setText(printedMatrixString);
-                                tvCipherText.setText(explainedResult);
-                            } else {
-                                tvKeyText.setText("");
-                                tvMatrixText.setText("");
-                                tvCipherText.setText(cipher);
-                            }
-                        }
-                    });
 //                     Hide Keyboard After clicking Button
 
 
@@ -308,45 +219,7 @@ public class PlayfairActivity extends AppCompatActivity {
         });
 
 
-        matrixToggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                if (isChecked) {
-
-                    String RowNo = "R";
-
-                    if (Alphabet.equalsIgnoreCase(ArabicAlphabets)) {
-                        RowNo = "صف:";
-                    }
-
-                    StringBuilder printedMatrixString = new StringBuilder();
-                    int counter = 0;
-
-                    for (int i = 0; i < col; i++) {
-                        printedMatrixString.append(RowNo + (i + 1) + "\t\t\t");
-
-                        for (int j = 0; j < row; j++) {
-
-                            printedMatrixString.append(Alphabet.charAt(counter) + "\t\t\t");
-                            counter++;
-
-                        }
-                        if (i < col - 1) {
-                            printedMatrixString.append("\n");
-                        }
-
-
-                    }
-
-                    tvMatrixText.setText(printedMatrixString);
-                } else {
-                    tvKeyText.setText("");
-                    tvMatrixText.setText("");
-                }
-
-
-            }
-        });
 
 
     }

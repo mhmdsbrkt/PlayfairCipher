@@ -21,7 +21,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+
+            >
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -40,7 +42,7 @@
                 android:layout_alignRight="@+id/textView"
                 android:layout_alignStart="@+id/textView"
                 android:layout_below="@+id/textView"
-                android:text="Symmetric Substitution Encryption"
+                android:text="Playfair Encryption"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="16dp" />
@@ -63,16 +65,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="3"
+                        >
 
                         <Button
                             android:id="@+id/englishBTN"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:text="ENG"
+
                             android:backgroundTint="@color/colorPrimaryDark"
-                            android:text="English"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="13dp"
+                            />
 
                         <Button
                             android:id="@+id/mixBTN"
@@ -81,7 +88,10 @@
                             android:layout_weight="1"
                             android:backgroundTint="@color/colorPrimaryDark"
                             android:text="Dual"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="13dp"
+
+                            />
 
                         <Button
                             android:id="@+id/arabicBTN"
@@ -90,15 +100,10 @@
                             android:layout_weight="1"
                             android:backgroundTint="@color/colorPrimaryDark"
                             android:text="Arabic"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:textSize="13dp"
 
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                            />
 
                         <Button
                             android:id="@+id/customBTN"
@@ -106,8 +111,32 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:backgroundTint="@color/colorPrimaryDark"
-                            android:text="Custom  Language"
-                            android:textColor="@color/white" />
+                            android:text="Custom"
+                            android:textColor="@color/white"
+                            android:textSize="13dp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        >
+
+                        <Button
+                            android:text="Connect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ConnectBTN"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/colorAccent"
+                            android:textColor="@color/white"
+
+                            />
+
 
                     </LinearLayout>
 
@@ -115,28 +144,8 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/Authors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/AASTMT"
-                android:text="Mohamed Barakat, Ahmed El Tokhy &amp; Mohammed Tawfik"
-                android:textAlignment="center"
-                android:textSize="12dp" />
 
-            <TextView
-                android:id="@+id/AASTMT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/BTNlayout"
-                android:paddingTop="14dp"
-                android:text="ASSTMT 2016"
-                android:textAlignment="center" />
+
 
             <TextView
                 android:id="@+id/textView"
@@ -148,11 +157,57 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/imageView2"
                 android:padding="12dp"
-                android:text="Playfair Encryption"
+                android:text="AASTMT-Cryptography"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="36dp" />
+                android:textSize="28dp" />
 
+            <TextView
+                android:id="@+id/AASTMT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/BTNlayout"
+                android:paddingTop="14dp"
+                android:text="AASTMT 2016"
+                android:textAlignment="center" />
+
+
+
+            <TextView
+                android:id="@+id/Authors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Undersupervision of A.prof: Essam Hamed \n Mohamed Barakat, Ahmed El Tokhy &amp; Mohammed Tawfik "
+                android:textAlignment="center"
+                android:textSize="12dp"
+                android:layout_below="@+id/AASTMT"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingTop="4dp"                />
+
+            <TextView
+                android:id="@+id/msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_below="@+id/Authors"
+                android:layout_toRightOf="@+id/Authors"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                />
+
+
+            <TextView
+                android:id="@+id/infoip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/msg"
+                android:gravity="center"
+                />
         </RelativeLayout>
 
     </ScrollView>
